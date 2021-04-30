@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS} [%p] [%X{REQUEST_ID}] [%C.%M.%L] [%t] : %m %n"/>
+        </Console>
+        <RollingFile name="TimeRollingFile" fileName="./logs/app.log" filePattern="./logs/app_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS} [%p] [%X{REQUEST_ID}] [%C.%M.%L] [%t] : %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="TargetClassTimeRollingFile" fileName="./logs/TargetClassLog.log" filePattern="./logs/TargetClassLog_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS} [%p] [%X{REQUEST_ID}] [%C.%M.%L] [%t] : %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <logger name="io.github.liningwonder" level="debug">
+            <AppenderRef ref="TimeRollingFile"/>
+        </logger>
+        <logger name="io.github.liningwonder.assembly.one.TargetClassLog" level="debug">
+            <AppenderRef ref="TimeRollingFile"/>
+        </logger>
+    </Loggers>
+</Configuration>
